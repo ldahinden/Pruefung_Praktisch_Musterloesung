@@ -11,8 +11,15 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
     {
         /**
          * 
-         * ANTWORTEN BITTE HIER
+         * 1. Cross Site Scripting, Path Traversal
+		 *
+		 * 2. localhost:50374/Lab1/index?type=../../Config.sys  -> Path Traversal
+		 *	  localhost:50374/Lab1/index?type=<script type="text/javascript">alert("XSS");</script>  -> Cross Site Scripting
          * 
+		 * 3. Mit Hilfe der ersten URL kann auf irgendeine Datei auf dem Computer zugegriffen werden, indem man mit den zwei Punkten eine Hierarchie züruck kommt im Filesystem.
+		 * Dieses file wird dann auf der Seite geladen
+		 *
+		 * Mit Hilfe der zweiten URL kann man den Webserver javascript code ausführen lassen, da die Script Tags ohne weiteres in die Applikation gelangen.
          * */
 
 
@@ -20,7 +27,7 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
         {
             var type = Request.QueryString["type"];
 
-            if (string.IsNullOrEmpty(type))
+            if (string.IsNullOrEmpty(type) || type.Contains("/") || type.Contains(".."))
             {
                 type = "lions";                
             }
@@ -58,11 +65,11 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
             var file = Request.QueryString["file"];
             var type = Request.QueryString["type"];
 
-            if (string.IsNullOrEmpty(file))
+            if (string.IsNullOrEmpty(file) || file.Contains("/") || type.Contains(".."))
             {
                 file = "Lion1.jpg";
             }
-            if (string.IsNullOrEmpty(type))
+            if (string.IsNullOrEmpty(type) || type.Contains("/") || type.Contains(".."))
             {
                 file = "lions";
             }
