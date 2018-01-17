@@ -17,7 +17,9 @@ namespace Pruefung_Praktisch_Musterloesung.Controllers
 
         /**
         * 
-        * ANTWORTEN BITTE HIER
+        * 1. Session Hijacking, SQL Injection
+        * 
+        * 2. 
         * 
         * */
 
